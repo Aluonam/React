@@ -9,4 +9,4 @@
 6. Dar funcionalidad a cada botón poniendo onClick y retornando el modificador que será el estado + 1 o - 1
 
 *Solución de error "You're importing a component that needs useState. It only works in a Client Component, but none of its parents are marked with "use client", so they're Server Components by default."
-con useClient; antes del import del useState
+con "use client"; antes del import del useState
