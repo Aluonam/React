@@ -4,12 +4,12 @@
 
 1. Crear campo usuario y contraseña y botón enviar en el return
 3. Crear useState para guardar un objeto que recoja los datos que escribe el usuario uno para nombre y contraseña
-<code>
-  const [nombreUser, setNombreUser] = useState({
-    nombre: '',
-    pass: ''
-  })
-</code>
+```javascript
+    const [nombreUser, setNombreUser] = useState({
+      nombre: '',
+      pass: ''
+    })
+```
 
 4. Dentro del input hay que especificar: 
         type
@@ -29,27 +29,27 @@
 **OPERADOR SPREAD**: Para mantener todos los campos del objeto y luego pisamos el valor de pass poniendo "pass:nuevoValor" y todo ello envuelto en {} para que siga siendo un objeto.
 
 5. Lo mismo para el input de contraseña. Pero esta vez para que se guarde en el objeto contraseña.
-<code>
+```javascript
       <input 
         type='password' 
         placeholder='Contraseña' 
         value={nombreUser.pass} 
         onChange={(e) => { setNombreUser({ ...nombreUser, pass: e.target.value }) }}/>
-{/* Se pone ...nombreUser para mantener todos los campos del objeto y luego pisamos el valor de pass poniendo "pass:nuevoValor" y todo ello envuelto en {} para que siga siendo un objeto. */}
-</code>
+      {/* Se pone ...nombreUser para mantener todos los campos del objeto y luego pisamos el valor de pass poniendo "pass:nuevoValor" y todo ello envuelto en {} para que siga siendo un objeto. */}
+```
 **Es importante:** entender que el operador spread (... previo a variable) permite coger los datos que ya hay. Después pondremos , para añadir los datos del objeto especifico y decir que será igual a los datos que reciba (con .target.value)
 
 6. Configurar el botón haciendo imprimir en consola el objeto (guardado en la variable del useState nombreUser)
-      <button onClick={() => { console.log(nombreUser) }}> Enviar </button>
+     `` <button onClick={() => { console.log(nombreUser) }}> Enviar </button>``
 
 7. Otra forma de hacer este punto para que añada la funcionalidad de quedar vacio tras mostrar en consola. Sería haciendo una función y simplemente llamandola en el botón.
 En la función se especificaría que 1-Imprima en consola y 2-Limpie el objeto (setObj({objeto1:' ', objeto2:' '}))
-<code>
-const enviar = ()  => {
-        console.log(user);
-        setUser({
-            nombre: '',
-            contra: ''
-        })
-    }
-</code>
+```javascript
+  const enviar = ()  => {
+          console.log(user);
+          setUser({
+              nombre: '',
+              contra: ''
+          })
+      }
+```
