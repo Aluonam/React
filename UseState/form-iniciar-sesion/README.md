@@ -16,7 +16,7 @@
         placeholder
         value
         función onChange
-*Hay que especificar en value que corresponde a la variable del useState y a que parte del objeto: {nombreVariable.Objeto1}
+*Hay que especificar en value que corresponde a la variable del useState y a que parte del `objeto: {nombreVariable.Objeto1}`
 ```javascript
 <input
         type='text'
