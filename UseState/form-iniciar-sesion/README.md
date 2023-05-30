@@ -17,15 +17,14 @@
         value
         función onChange
 *Hay que especificar en value que corresponde a la variable del useState y a que parte del objeto: {nombreVariable.Objeto1}
-<pre>
-<code>
-    <input
+```javascript
+<input
         type='text'
         placeholder=' Nombre'
         value={nombreUser.nombre} // ponemos el valor del objeto que nos interesa en este caso nombreUser.nombre
-        onChange={(e) => { setNombreUser({ ...nombreUser, nombre: e.target.value }) }}/> //recoge parámetro de dato y devuelve el cambio del modificador que guarda el nombre de usuario. 
-</code>
-</pre>
+        onChange={(e) => { setNombreUser({ ...nombreUser, nombre: e.target.value }) }}
+        /> //recoge parámetro de dato y devuelve el cambio del modificador que guarda el nombre de usuario. 
+```
 *los ... antes de nombreUser. 
 **OPERADOR SPREAD**: Para mantener todos los campos del objeto y luego pisamos el valor de pass poniendo "pass:nuevoValor" y todo ello envuelto en {} para que siga siendo un objeto.
 
