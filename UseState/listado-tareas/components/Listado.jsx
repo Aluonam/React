@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 const Listado = () => {
 
-  //useState que crea array vacio para almacenar los datos del texto que escriba el usuario
+    //useState que crea array vacio para almacenar los datos del texto que escriba el usuario
     const [tarea, setTarea] = useState([])  
     //useState para que guarde lo que escribe el usuario en pantalla y que despues pediremos que guarde en el array
     const [textoPantalla, setTextoPantalla] = useState()
