@@ -16,13 +16,13 @@ const TaskBoxes = ({tareasPorHacer,setTareasPorHacer,tareasHechas, setTareasHech
         return tareasPorHacer.map((valorActual,index)=>{
             return(
                 <>
-                <div className={TaskBoxesCSS.mainBoxContent_taskBoxes__BoxList_CheckBox}>
+                <div className={TaskBoxesCSS.mainBoxContent_taskBoxes__BoxList_CheckBox} >
                     <input 
                         type="checkbox"
                         checked={indexMarcadosTPH.some((valorActual)=>valorActual===index)} 
-                        onClick={()=>{handleAddOrDeletTaskPH(index)}}>
+                        onChange={()=>{handleAddOrDeletTask(index)}}>
                     </input>
-                    <label for="horns">{valorActual}</label>
+                    <label htmlFor="horns">{valorActual}</label>
                 </div>
                 </>
             )
@@ -38,9 +38,9 @@ const TaskBoxes = ({tareasPorHacer,setTareasPorHacer,tareasHechas, setTareasHech
                     <input 
                         type="checkbox" 
                         checked={indexMarcadosH.some((valorActual)=>valorActual===index)} 
-                        onClick={()=>{handleAddOrDeletTaskH(index)}}>
+                        onChange={()=>{handleAddOrDeletTask(index,false)}}>
                     </input>
-                    <label for="horns">{valorActual}</label>
+                    <label htmlFor="horns" style={{textDecoration:"line-through"}}>{valorActual}</label>
                 </div>
                 </>
             )
@@ -49,20 +49,15 @@ const TaskBoxes = ({tareasPorHacer,setTareasPorHacer,tareasHechas, setTareasHech
     }
 
 
-    const handleAddOrDeletTaskPH = (posicionArray)=>{
+    const handleAddOrDeletTask = (posicionArray,TPH=true)=>{
+        let arrayToWork = TPH ? indexMarcadosTPH : indexMarcadosH
         let newArrayValue 
-        const existePosicion =  indexMarcadosTPH.some((elementoArray)=>elementoArray === posicionArray)
-        if(existePosicion){ newArrayValue = indexMarcadosTPH.filter((valAct)=>valAct!==posicionArray) }
-        else{newArrayValue = [...indexMarcadosTPH,posicionArray]}
-        setIndexMarcadosTPH(newArrayValue)
-    }
 
-    const handleAddOrDeletTaskH = (posicionArray)=>{
-        let newArrayValue 
-        const existePosicion =  indexMarcadosH.some((elementoArray)=>elementoArray === posicionArray)
-        if(existePosicion){ newArrayValue = indexMarcadosH.filter((valAct)=>valAct!==posicionArray) }
-        else{newArrayValue = [...indexMarcadosH,posicionArray]}
-        setIndexMarcadosH(newArrayValue)
+        const existePosicion =  arrayToWork.some((elementoArray)=>elementoArray === posicionArray)
+        if(existePosicion){ newArrayValue = arrayToWork.filter((valAct)=>valAct!==posicionArray) }
+        else{newArrayValue = [...arrayToWork,posicionArray]}
+
+        TPH ? setIndexMarcadosTPH(newArrayValue) : setIndexMarcadosH(newArrayValue);
     }
 
 //___________________________________________________________________________________________________________________________
