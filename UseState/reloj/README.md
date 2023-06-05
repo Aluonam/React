@@ -1,38 +1,92 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# HOOK USESTATE
+## RELOJ: Construye un reloj digital que muestre la hora actualizada en tiempo real.
 
-## Getting Started
+Dos opciones:
+**COMPONENTE RELOJ**
 
-First, run the development server:
+1. Crea componente nuevo e importa y llama en la página principal.
+2. Crear useState que guarde la variable hora e importalo.
+``const [hora, setHora] = useState("No se ha cargado la hora")``
+3. Crear useEffect para especificar que se recargue en un intervalo de un segundo: (no olvides improtarlo)
+``setInterval(()=>setHora(new Date().toLocaleTimeString()),1000``
+En total:
+```javascript
+    useEffect(() => {
+            const actionPerSecond =  setInterval(()=>setHora(new Date().toLocaleTimeString()),1000)
+            return ()=> clearInterval(actionPerSecond)
+            }, [])
+```
+4. En el return se llama a la variable {hora}
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+```javascript
+const Reloj = () => {
+    
+    const [hora, setHora] = useState("No se ha cargado la hora")
+    
+    useEffect(() => {
+     const actionPerSecond =  setInterval(()=>setHora(new Date().toLocaleTimeString()),1000)
+     return ()=> clearInterval(actionPerSecond)
+    }, [])
+
+  return (<>{hora}</> )
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+**COMPONENTE RELOJ PRIMITIVO**
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+1. Crea componente nuevo e importa y llama en la página principal.
+2. Crear una cosntante para almacenar new Date();
+``const fecha = new Date();``
+3. Crear useState que por defecto sea la llamada a new Date con .getHours() con .getMinutes() y con .getSeconds()
+`` const [horaActual, setHoraActual] = useState(fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds())``
+4. Llamar en el return a {horaActual}
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```javascript
+    const RelojPrimitivo = () => {
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+        const fecha = new Date();
 
-## Learn More
+        const [horaActual, setHoraActual] = useState(fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds())
+    return ( 
+        <>
+        {horaActual}
+        </>
+    )
+    }
+```
+   
 
-To learn more about Next.js, take a look at the following resources:
+**RELOJ QUE SE RECARGA SOLO AL PULSAR EL BOTÓN**
+1. Crear useState.
+``const [horaActual, setHoraActual] = useState()``
+2. Crear función handleHour que luego llamaremos en el onClick del botón. Esta función guarda en una constante new Date();
+Y también dirá que el modificador es igual a la constante anterior (new Date()) con .getHours() con .getMinutes() y con .getSeconds()
+```javascript
+    const handleFecha = () => {
+            const fecha2 = new Date();;
+            setHoraActual(fecha2.getHours() + ":" + fecha2.getMinutes() + ":" + fecha2.getSeconds())
+        }
+```
+3. Crear botón en el return y meter funciópn OnClick
+4. En la función OnClick se llama a la función de la parte lógica handleHour()
+``<button onClick={()=>{handleFecha()}}>refresca la hora</button>``
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```javascript
+ const RelojPrimitivo = () => {
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    const [horaActual, setHoraActual] = useState()
 
-## Deploy on Vercel
+    const handleFecha = () => {
+        const fecha2 = new Date();;
+        setHoraActual(fecha2.getHours() + ":" + fecha2.getMinutes() + ":" + fecha2.getSeconds())
+    }
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  return ( 
+    <>
+    <button onClick={()=>{handleFecha()}}>refresca la hora</button>
+    </>
+  )
+}
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
