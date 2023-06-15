@@ -17,3 +17,5 @@ Hay que declarar dentro del useEffect que en el setTimeOut haya una constante fu
       setTimeout( () => setTextoSaludo("Hola soy el componente con useEffect"), 3000)
     }, [])
 ```
+
+*En caso de necesitarlo en consola > network > no throttling (se puede cambiar para hacer la conexión lenta especificando en este apartado Slow 3G).
