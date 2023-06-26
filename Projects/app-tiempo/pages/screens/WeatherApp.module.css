@@ -1,0 +1,36 @@
+.main{
+    /* background-color: aquamarine; */
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.title{
+    font-size: 35px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.searchBox{
+    /* background-color: bisque; */
+    font-size: medium;
+    display: flex;
+    width: 600px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.resultBox{
+    /* background-color: rgb(204, 168, 237); */
+    width: 600px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
