@@ -1,0 +1,50 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  border: 1px solid black;
+}
+
+.title{
+  border: 1px solid blue;
+  height: 10vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container{
+  border: 1px solid green;
+  height: 90vh;
+  width: 100vw;
+  display: flex;
+  padding: 6em;
+  gap: 20px;
+  justify-content: center;
+}
+
+.productContainer{
+  border: 1px solid purple;
+  width: 40vw;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cartContainer{
+  border: 1px solid purple;
+  width: 20vw;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.rowProduct{
+  display: flex;
+  gap: 40px;
+  margin-bottom: 30px;
+}
