@@ -1,38 +1,160 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+**CONSUMO API**
+**CHISTE**
+1. Se crea el componente normal donde iría la llamada a API (la llamada a API en sí no es un componente especifico, sino que va dentro del componente que lo usará).
+2. Se crea documento .jsx (porque será un componente de React) También irá con la primera letra en mayúscula. 
+3.  Se crea el componente de forma normal: 
+```javascript
+const Chiste = () => {
 
-## Getting Started
+  return (
+    <>
+    </>
+  )
+}
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+export default Chiste
+//-------------Se llama al componente donde se vaya a usar: En index.js:
+<main>
+    <Chiste></Chiste>
+</main>
 ```
+4. Se crea función de llamada a API
+```javascript
+const Chiste = () => {
+    const llamadaAPI = async () =>  {
+        try{
+        //-------------Const para guardar el link importante AWAIT 
+        const llamada = await fetch('https://v2.jokeapi.dev/joke/Programming?lang=es')
+        //-------------Se convierten los datos a .json
+        const datos = await llamada.json()
+        //-------------Se imprimen (opcional es para ver que salen)
+        console.log("datos",datos)
+        }
+        catch(error){
+            console.log("error detectado", error);
+        }
+    }
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+  return (
+    <>
+    </>
+  )
+}
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+export default Chiste
+```
+5. Se meten los datos en un useState
+6. Se pone el botón y se llama en el return a los datos que quiero mostrar que están guardados en el useState
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```javascript
+import React, {useState} from 'react'
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+const Chiste = () => {
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+    const [datosAPI, setDatosAPI] = useState("Aún no me has contado ningún chiste")
 
-## Learn More
+    const llamadaAPI = async () =>  {
+        try{
+        const llamada = await fetch('https://v2.jokeapi.dev/joke/Programming?lang=es')
+        const datos = await llamada.json()
+        console.log("datos",datos)
+        //Se meten los datos en la variable del useState y se especifica la clave:valor que se coge.
+        setDatosAPI({setup:datos.setup, delivery:datos.delivery, joke:datos.joke})
+        }
+        catch(error){
+            console.log("error detectado", error);
+        }
+    }
+llamadaAPI(); //--------eliminar esta linea a llamar desde useEffect
 
-To learn more about Next.js, take a look at the following resources:
+//Se pone el botón y se llama en el return a los datos que quiero mostrar que estan guarados en el useState. 
+//Al tratarse de un Array hay que especificar que parte del array quiero mostrar
+  return (
+    <>
+    //------------datos que quiero mostrar: 
+    <div>Chiste:</div>
+    {datosAPI.setup}
+    <br></br>
+    {datosAPI.delivery}
+    <br></br>
+    {datosAPI.joke}
+    //---------------botón para llamar a API y que muestre info
+    <button onClick={()=>{llamadaAPI()}}>Cuéntame un chiste</button>
+    </>
+  )
+}
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+export default Chiste
+```
+7. Por último la llamada a API se mete dentro de useEffect para que se renderice solo cuando sea necesario y solo una vez.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```javascript
+// Llamada a API de chistes:
+import React,{useEffect, useState} from 'react'
 
-## Deploy on Vercel
+const Chiste = () => {
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    const [datosAPI, setDatosAPI] = useState("Aún no me has contado ningún chiste")
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    useEffect(() => {
+        llamadaAPI()
+    }, [])
+    
+
+    const llamadaAPI = async () =>  {
+        try{
+        const llamada = await fetch('https://v2.jokeapi.dev/joke/Programming?lang=es')
+        const datos = await llamada.json()
+        console.log("datos",datos)
+        setDatosAPI({setup:datos.setup, delivery:datos.delivery, joke:datos.joke})
+        }
+        catch(error){
+            console.log("error detectado", error);
+        }
+    }
+
+
+  return (
+    <>
+    //------------datos que quiero mostrar: 
+    <div>Chiste:</div>
+    {datosAPI.setup}
+    <br></br>
+    {datosAPI.delivery}
+    <br></br>
+    {datosAPI.joke}
+    //---------------botón para llamar a API y que muestre info
+    <button onClick={()=>{llamadaAPI()}}>Cuéntame un chiste</button>
+    </>
+  )
+}
+
+export default Chiste
+
+//--------------------------------------------------------------------
+//-------------------En index: Solo se llama al componente------------
+import Head from 'next/head'
+import { Inter } from 'next/font/google'
+import styles from '@/styles/Home.module.css'
+import Chiste from '@/components/chiste'
+
+const inter = Inter({ subsets: ['latin'] })
+
+export default function Home() {
+  return (
+    <>
+      <Head>
+        <title>Create Next App</title>
+        <meta name="description" content="Generated by create next app" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <main className={`${styles.main} ${inter.className}`}>
+      //---------------LLAMADA AL COMPONENTE--------------------
+        <Chiste></Chiste>
+      
+      </main>
+    </>
+  )
+}
+```
