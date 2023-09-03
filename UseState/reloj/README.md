@@ -1,7 +1,23 @@
 # HOOK USESTATE
 ## RELOJ: Construye un reloj digital que muestre la hora actualizada en tiempo real.
+Mejor opción: usando useState y useEffect con setInterval, new Date(), toLocaleString() .split()
 
-Dos opciones:
+```javascript
+    const [hora, setHora] = useState()
+
+    useEffect(() => {
+      const interval = setInterval(() => {
+        const fecha = new Date();
+        // console.log(fecha.toLocaleString().split(",")[1])
+        setHora((fecha.toLocaleString().split(",")[1]))
+
+      }, 1000)
+
+      return()=>clearInterval(interval);
+    }, [])
+```
+
+Otras dos opciones:
 **COMPONENTE RELOJ**
 
 1. Crea componente nuevo e importa y llama en la página principal.
